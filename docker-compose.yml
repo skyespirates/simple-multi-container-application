@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: demo-app
+    container_name: skyes
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - PORT=$PORT
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo
+    container_name: mongodibi
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=$MONGO_PORT
+    networks:
+      - app-network
+
+  redis:
+    image: redis:6.2
+    container_name: redys
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=$REDIS_PORT
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
