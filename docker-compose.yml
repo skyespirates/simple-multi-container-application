@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: demo-app
+    image: demon-app
     container_name: skyes
     restart: unless-stopped
     env_file: .env
@@ -18,23 +18,15 @@ services:
 
   mongodb:
     image: mongo
-    container_name: mongodibi
+    container_name: monggo
     restart: unless-stopped
-    env_file: .env
-    environment:
-      - MONGO_HOST=mongodb
-      - MONGO_PORT=$MONGO_PORT
     networks:
       - app-network
 
   redis:
     image: redis:6.2
-    container_name: redys
+    container_name: readis
     restart: unless-stopped
-    env_file: .env
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=$REDIS_PORT
     networks:
       - app-network
 
