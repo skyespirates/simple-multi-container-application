@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node-app
+    container_name: example-service
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  nosql:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  cache:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
